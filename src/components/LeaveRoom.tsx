@@ -1,8 +1,9 @@
 "use client"
 import { FC, useState } from "react";
 import { Button } from "./ui/Button";
-import { addUserToRoom } from "@/app/_actions/user";
+import { removeUserFromRoom } from "@/app/_actions/user";
 import { useRouter } from "next/navigation";
+import { LogOutIcon } from "lucide-react";
 import { revalidatePath } from "next/cache";
 
 interface JoinGroupProps {
@@ -13,12 +14,12 @@ interface JoinGroupProps {
 const JoinGroup: FC<JoinGroupProps> = ({ roomId, userId }) => {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
-    const joinGroup = async () => {
+    const leaveGroup = async () => {
         setLoading(true)
         try {
-            await addUserToRoom(roomId, userId)
+            await removeUserFromRoom(roomId, userId)
             router.refresh()
-            router.push(`/rooms/${roomId}`)
+            router.push(`/rooms`)
         } catch (error) {
             console.log(error)
         } finally {
@@ -26,7 +27,7 @@ const JoinGroup: FC<JoinGroupProps> = ({ roomId, userId }) => {
         }
     }
     return (
-        <Button size="sm" variant="cta" className="px-6 ml-auto mr-4" disabled={loading} isLoading={loading} onClick={joinGroup}>Join</Button >
+        <Button size="sm" variant="cta" className="px-3 items-center" disabled={loading} isLoading={loading} onClick={leaveGroup}>Leave Room<LogOutIcon className="w-4 h-4 ml-3" /> </Button >
     );
 }
 

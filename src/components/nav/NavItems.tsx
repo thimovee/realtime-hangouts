@@ -12,7 +12,7 @@ const NavItems: FC = () => {
       <a href="/rooms" className={cn("transition-colors hover:text-[#09090bcc] dark:hover:text-[#fafafacc]", pathname?.startsWith("/rooms") ? "text-[#09090b] dark:text-[#FAFAFA]" : "text-[#09090b99] dark:text-[#fafafa99]")}>
         Rooms
       </a>
-      <Link target='_blank' href="#" className="transition-colors text-[#09090b99] dark:text-[#fafafa99] hover:text-[#09090bcc] dark:hover:text-[#fafafacc]">
+      <Link target='_blank' href="https://github.com/thimovee/realtime-hangouts" className="transition-colors text-[#09090b99] dark:text-[#fafafa99] hover:text-[#09090bcc] dark:hover:text-[#fafafacc]">
         Github
       </Link>
     </nav>

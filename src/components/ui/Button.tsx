@@ -19,7 +19,7 @@ const buttonVariants = cva(
         ghost:
           'bg-transparent dark:hover:bg-neutral-700 hover:bg-slate-200 text-slate-800 dark:text-slate-200 data-[state=open]:bg-transparent data-[state=open]:bg-transparent',
         link: 'bg-transparent dark:bg-transparent underline-offset-4 hover:underline text-slate-900 dark:text-slate-100 hover:bg-transparent dark:hover:bg-transparent',
-        cta: 'bg-[#ffd12b] hover:bg-[#ffd12b]/90 text-black font-semibold'
+        cta: 'bg-sky-500 hover:bg-sky-500/90 text-white font-semibold'
       },
       size: {
         default: 'h-9 py-2 px-4',
@@ -38,7 +38,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   isLoading?: boolean
 }
 

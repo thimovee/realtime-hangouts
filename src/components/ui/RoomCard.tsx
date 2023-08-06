@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { buttonVariants } from "./Button";
 import Image from "next/image";
 import { ExtentedRoom } from "@/types/room";
-import { User2 } from "lucide-react";
+import { Eye, User2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import JoinGroup from "../JoinGroup";
 

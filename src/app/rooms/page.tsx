@@ -6,6 +6,9 @@ import RoomCard from '@/components/ui/RoomCard'
 import { ExtentedRoom } from '@/types/room'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+
+export const revalidate = 0
+
 const page = async () => {
   const allRooms = await db.room.findMany({
     include: {
