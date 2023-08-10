@@ -56,7 +56,7 @@ const Body: React.FC<BodyProps> = ({ initialMessages = [], roomId, userId }) => 
     }, [roomIdString]);
 
     return (
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto z-0">
             {messages.map((message) => (
                 <div className={cn(
                     "w-full flex",
@@ -75,8 +75,8 @@ const Body: React.FC<BodyProps> = ({ initialMessages = [], roomId, userId }) => 
                                 {isClient && <span className="text-sm text-slate-700 dark:text-slate-500">{formatTimeToNow(new Date(message.createdAt))}</span>}
                             </div>
                             <span className={cn(
-                                "bg-neutral-900 rounded-full p-4 py-2 font-medium text-sm max-w-xs md:max-w-xl break-words",
-                                message.userId === userId ? "bg-sky-500" : "bg-neutral-900"
+                                "rounded-lg p-4 py-2 text-sm max-w-xs md:max-w-xl break-words",
+                                message.userId === userId ? "bg-primary text-white" : "bg-muted"
                             )} >{message.content}</span>
                         </div>
                         <div>

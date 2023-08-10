@@ -6,10 +6,19 @@ import RoomCard from '@/components/ui/RoomCard'
 import { ExtentedRoom } from '@/types/room'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import { Category } from '@prisma/client'
+import { CreateRoom } from '@/components/CreateRoom'
+import Link from 'next/link'
+import PaginationControls from '@/components/PaginationControls'
+import FilteringControls from '@/components/FilteringControls'
 
 export const revalidate = 0
 
-const page = async () => {
+const page = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) => {
   const allRooms = await db.room.findMany({
     include: {
       category: true,
@@ -26,6 +35,21 @@ const page = async () => {
     }
     return false
   }
+  const allCategories = allRooms.map(room => room.category) as Category[]
+  const page = searchParams['page'] ?? '1'
+  const per_page = searchParams['per_page'] ?? '5'
+  const start = (Number(page) - 1) * Number(per_page) // 0, 5, 10 ...
+  const end = start + Number(per_page) // 5, 10, 15 ...
+  const entries = allRooms.slice(start, end)
+  const showJoined = searchParams['joined'] === 'true'
+  const category = searchParams['category'] ?? 'all'
+  let displayedRooms = entries
+  if (showJoined) {
+    displayedRooms = displayedRooms.filter((room) => userInRoom(room.id));
+  }
+  if (category !== 'all') {
+    displayedRooms = displayedRooms.filter((room) => room.category.id === Number(category));
+  }
 
   return (
     <section className='px-4 xl:px-0 container max-w-7xl h-full mx-auto flex flex-col'>
@@ -37,22 +61,26 @@ const page = async () => {
           </p>
         </div>
         <div className="w-full mt-6 md:mt-0 md:w-1/2 flex justify-end items-end">
-          <Button className='w-full md:max-w-fit' variant="cta"><Plus className='w-4 h-4 mr-2' /> Create Room</Button>
+          <Link href='/rooms/new' className='px-3 py-2 text-sm rounded-md bg-primary hover:bg-primary/80 flex items-center text-white font-medium max-w-fit'> <Plus className='w-4 h-4 mr-2' /> Create Room</Link>
         </div>
       </div>
       <div className="flex gap-8 my-10">
-        <span>Categories V</span>
+        <FilteringControls categories={allCategories} />
         <span>Search rooms...</span>
-        <span>
-          <input type="checkbox" className='mr-2' />
-          Only show rooms I&apos;m in
-        </span>
+        {category === 'all' ? <div>all rooms</div> : <div>CategoryID{category}</div>}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {allRooms.map((room) => (
-          // @ts-ignore
-          <RoomCard key={room.id} room={room} userId={userId} userInRoom={userInRoom(room.id)} />
+        {displayedRooms.map((room) => (
+          <>
+            {<RoomCard key={room.id} room={room} userId={userId!} userInRoom={userInRoom(room.id)} />}
+          </>
         ))}
+      </div>
+      <div className='flex flex-col gap-2 items-center py-8'>
+        <PaginationControls
+          hasNextPage={end < allRooms.length}
+          hasPrevPage={start > 0}
+        />
       </div>
     </section>
   )

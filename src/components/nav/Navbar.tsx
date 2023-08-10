@@ -10,7 +10,7 @@ import { Cable } from 'lucide-react'
 const Navbar = async () => {
   const session = await getServerSession(authOptions)
   return (
-    <header className='bg-slate-50 dark:bg-neutral-950 border-b border-slate-200 dark:border-neutral-800 shadow-sm sticky top-0 inset-x-0 h-fit  z-[10] py-4'>
+    <header className='bg-background border-b border-slate-200 dark:border-neutral-800 shadow-sm sticky top-0 inset-x-0 h-fit  z-20 py-4'>
       <div className='px-4 xl:px-0 container max-w-7xl h-full mx-auto flex items-center justify-between gap-2'>
         <div className='flex gap-8 items-center'>
           <Link href='/' className='flex gap-2 items-center hover:underline underline-offset-4'>

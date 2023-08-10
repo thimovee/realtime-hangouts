@@ -31,7 +31,6 @@ export async function addMessage(roomId: number, userId: string, content: string
         }
     })
     await pusherServer.trigger(roomId.toString(), 'messages:new', newMessage);
-
     const lastMessage = updatedRoom.messages[updatedRoom.messages.length - 1];
 
     updatedRoom.users.map((user) => {

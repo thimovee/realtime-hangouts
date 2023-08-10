@@ -3,7 +3,6 @@ import { FC, useState } from "react";
 import { Button } from "./ui/Button";
 import { addUserToRoom } from "@/app/_actions/user";
 import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
 interface JoinGroupProps {
     roomId: number;
@@ -26,7 +25,7 @@ const JoinGroup: FC<JoinGroupProps> = ({ roomId, userId }) => {
         }
     }
     return (
-        <Button size="sm" variant="cta" className="px-6 ml-auto mr-4" disabled={loading} isLoading={loading} onClick={joinGroup}>Join</Button >
+        <Button size="sm" className="bg-primary hover:bg-primary/80 text-white px-6 ml-auto mr-4" disabled={loading} isLoading={loading} onClick={joinGroup}>Join</Button >
     );
 }
 

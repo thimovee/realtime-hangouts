@@ -4,7 +4,6 @@ import { Button } from "./ui/Button";
 import { removeUserFromRoom } from "@/app/_actions/user";
 import { useRouter } from "next/navigation";
 import { LogOutIcon } from "lucide-react";
-import { revalidatePath } from "next/cache";
 
 interface JoinGroupProps {
     roomId: number;
@@ -27,7 +26,7 @@ const JoinGroup: FC<JoinGroupProps> = ({ roomId, userId }) => {
         }
     }
     return (
-        <Button size="sm" variant="cta" className="px-3 items-center" disabled={loading} isLoading={loading} onClick={leaveGroup}>Leave Room<LogOutIcon className="w-4 h-4 ml-3" /> </Button >
+        <Button size="xs" className="bg-red-400 hover:bg-red-500 text-white rounded-md px-3 items-center" disabled={loading} isLoading={loading} onClick={leaveGroup}>{!loading && <LogOutIcon className="w-4 h-4 mr-2" />}Leave Room</Button >
     );
 }
 

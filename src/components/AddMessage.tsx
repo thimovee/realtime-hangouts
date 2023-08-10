@@ -55,7 +55,7 @@ export function AddMessageForm({ userrId, roomId }: { userrId: string, roomId: n
                         message={form.formState.errors.content?.message}
                     />
                 </FormItem>
-                <Button variant="cta" className="h-10 rounded-l-none" disabled={isPending}>
+                <Button className="bg-primary hover:bg-primary/80 text-white h-10 rounded-l-none" disabled={isPending}>
                     {isPending ? (
                         <Loader
                             className="h-5 w-5 animate-spin"
