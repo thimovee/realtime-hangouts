@@ -19,7 +19,7 @@ const page = async ({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
-  const allRooms = await db.room.findMany({
+  let allRooms = await db.room.findMany({
     include: {
       category: true,
       messages: true,
@@ -36,19 +36,25 @@ const page = async ({
     return false
   }
   const allCategories = allRooms.map(room => room.category) as Category[]
-  const page = searchParams['page'] ?? '1'
-  const per_page = searchParams['per_page'] ?? '5'
-  const start = (Number(page) - 1) * Number(per_page) // 0, 5, 10 ...
-  const end = start + Number(per_page) // 5, 10, 15 ...
-  const entries = allRooms.slice(start, end)
+  const distintCategories = allCategories.filter((category, index, self) => self.findIndex(c => c.id === category.id) === index)
   const showJoined = searchParams['joined'] === 'true'
   const category = searchParams['category'] ?? 'all'
-  let displayedRooms = entries
+
   if (showJoined) {
-    displayedRooms = displayedRooms.filter((room) => userInRoom(room.id));
+    allRooms = allRooms.filter((room) => userInRoom(room.id)); // step 2: filter by joined status
   }
+
   if (category !== 'all') {
-    displayedRooms = displayedRooms.filter((room) => room.category.id === Number(category));
+    allRooms = allRooms.filter((room) => room.category.id === Number(category)); // step 3: filter by category
+  }
+  const page = searchParams['page'] ?? '1'
+  const per_page = searchParams['per_page'] ?? '6'
+  const start = (Number(page) - 1) * Number(per_page)
+  const end = start + Number(per_page)
+  let entries = allRooms.slice(start, end)
+
+  if (entries.length === 0) {
+    entries = allRooms.slice(0, Number(per_page))
   }
 
   return (
@@ -64,23 +70,17 @@ const page = async ({
           <Link href='/rooms/new' className='px-3 py-2 text-sm rounded-md bg-primary hover:bg-primary/80 flex items-center text-white font-medium max-w-fit'> <Plus className='w-4 h-4 mr-2' /> Create Room</Link>
         </div>
       </div>
-      <div className="flex gap-8 my-10">
-        <FilteringControls categories={allCategories} />
-        <span>Search rooms...</span>
-        {category === 'all' ? <div>all rooms</div> : <div>CategoryID{category}</div>}
-      </div>
+      <FilteringControls categories={distintCategories} />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {displayedRooms.map((room) => (
+        {entries.map((room) => (
           <>
-            {<RoomCard key={room.id} room={room} userId={userId!} userInRoom={userInRoom(room.id)} />}
+            <RoomCard key={room.id} room={room} userId={userId!} userInRoom={userInRoom(room.id)} />
           </>
         ))}
       </div>
+      {entries.length === 0 && (<div className='mx-auto my-32 text-xl font-bold text-white'>No rooms found</div>)}
       <div className='flex flex-col gap-2 items-center py-8'>
-        <PaginationControls
-          hasNextPage={end < allRooms.length}
-          hasPrevPage={start > 0}
-        />
+        <PaginationControls hasNextPage={end < allRooms.length} hasPrevPage={start > 0} />
       </div>
     </section>
   )

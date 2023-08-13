@@ -22,7 +22,7 @@ const PaginationControls: FC<PaginationControlsProps> = (
     const category = searchParams.get('category') ?? 'all'
     const joined = searchParams.get('joined') ?? 'false'
     const page = searchParams.get('page') ?? '1'
-    const per_page = searchParams.get('per_page') ?? '5'
+    const per_page = searchParams.get('per_page') ?? '6'
 
     return (
         <div className='flex gap-2'>

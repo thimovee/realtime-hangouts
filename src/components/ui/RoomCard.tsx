@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { buttonVariants } from "./Button";
 import Image from "next/image";
 import { ExtentedRoom } from "@/types/room";
-import { Eye, User2 } from "lucide-react";
+import { LogIn, User2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import JoinGroup from "../JoinGroup";
 
@@ -28,7 +28,7 @@ const RoomCard: FunctionComponent<RoomCardProps> = ({ room, userId, userInRoom }
                     <span className="flex gap-2 items-center bg-neutral-900 text-white mr-4 p-2 rounded-md font-bold"> <User2 className='w-4 h-4 ' /> {room.users.length}/{room.capacity}</span>
                 </div>
                 {userInRoom ? (
-                    <a className={cn(buttonVariants({ size: "sm", className: "bg-primary  text-white hover:bg-primary/80 px-6 ml-auto mr-4", }))} href={`/rooms/${room.id}`}>Enter</a>
+                    <a className={cn(buttonVariants({ size: "sm", className: "bg-green-600 hover:bg-green-600/80  text-white px-6 ml-auto mr-4 flex gap-3", }))} href={`/rooms/${room.id}`}> <LogIn className="w-4 h-4" /> Enter</a>
                 ) : (
                     <JoinGroup userId={userId} roomId={room.id} />
                 )}

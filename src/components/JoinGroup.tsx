@@ -3,6 +3,7 @@ import { FC, useState } from "react";
 import { Button } from "./ui/Button";
 import { addUserToRoom } from "@/app/_actions/user";
 import { useRouter } from "next/navigation";
+import { Users2 } from "lucide-react";
 
 interface JoinGroupProps {
     roomId: number;
@@ -25,7 +26,10 @@ const JoinGroup: FC<JoinGroupProps> = ({ roomId, userId }) => {
         }
     }
     return (
-        <Button size="sm" className="bg-primary hover:bg-primary/80 text-white px-6 ml-auto mr-4" disabled={loading} isLoading={loading} onClick={joinGroup}>Join</Button >
+        <Button size="sm" className="bg-primary hover:bg-primary/80 text-white px-6 ml-auto mr-4" disabled={loading} isLoading={loading} onClick={joinGroup}>
+            {!loading && <Users2 className='w-4 h-4 mr-3' />}
+            Join
+        </Button >
     );
 }
 
