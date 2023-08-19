@@ -2,7 +2,7 @@ import React from 'react'
 
 const loading = () => {
     return (
-        <section className='px-4 xl:px-0 container max-w-7xl h-full mx-auto flex flex-col'>
+        <section className='pb-32 px-4 xl:px-0 container max-w-7xl h-full mx-auto flex flex-col'>
             <div className="flex flex-col md:flex-row justify-between pb-10 border-b-2 border-accent">
                 <div className="w-full md:w-1/2">
                     <div className="w-32 h-10 rounded-full bg-accent animate-pulse" />
