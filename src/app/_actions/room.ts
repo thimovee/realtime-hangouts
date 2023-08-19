@@ -30,9 +30,6 @@ export async function addUserToRoom(roomId: number, userId: string) {
 }
 
 
-
-
-
 export async function removeUserFromRoom(roomId: number, userId: string) {
     await db.room.update({
         where: {

@@ -1,7 +1,7 @@
 "use client"
 import { FC, useState } from "react";
 import { Button } from "./ui/Button";
-import { removeUserFromRoom } from "@/app/_actions/user";
+import { removeUserFromRoom } from "@/app/_actions/room";
 import { useRouter } from "next/navigation";
 import { LogOutIcon } from "lucide-react";
 

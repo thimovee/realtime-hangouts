@@ -28,7 +28,7 @@ const RoomCard: FunctionComponent<RoomCardProps> = ({ room, userId, userInRoom }
                     <span className="flex gap-2 items-center bg-neutral-900 text-white mr-4 p-2 rounded-md font-bold"> <User2 className='w-4 h-4 ' /> {room.users.length}/{room.capacity}</span>
                 </div>
                 {userInRoom ? (
-                    <a className={cn(buttonVariants({ size: "sm", className: "bg-green-600 hover:bg-green-600/80  text-white px-6 ml-auto mr-4 flex gap-3", }))} href={`/rooms/${room.id}`}> <LogIn className="w-4 h-4" /> Enter</a>
+                    <a className={cn(buttonVariants({ size: "sm", className: "bg-white text-black ring-2 ring-green-500 ring-offset-4 hover:ring-green-500/80 ring-offset-neutral-900/60 px-6 ml-auto mr-4 flex gap-3", }))} href={`/rooms/${room.id}`}> <LogIn className="w-4 h-4" /> Enter</a>
                 ) : (
                     <JoinGroup userId={userId} roomId={room.id} />
                 )}

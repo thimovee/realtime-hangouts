@@ -21,7 +21,7 @@ const FilteringControls: FC<FilteringControlsProps> = ({ categories }) => {
     return (
         <div className='flex gap-6 my-10'>
             <select
-                className='foreground hover:cursor-pointer px-3 py-2 rounded-md'
+                className='foreground hover:cursor-pointer px-3 py-2 rounded-md border border-border'
                 value={category}
                 onChange={(e) => {
                     router.push(`/rooms?page=${page}&per_page=${per_page}&joined=${joined}&category=${e.target.value}`)
@@ -34,6 +34,7 @@ const FilteringControls: FC<FilteringControlsProps> = ({ categories }) => {
             </select>
             <label className='flex items-center gap-2 hover:cursor-pointer'>
                 <input
+                    className='bg-foreground border border-border h-5 w-5 rounded-md'
                     type='checkbox'
                     checked={joined === 'true'}
                     onChange={() => {

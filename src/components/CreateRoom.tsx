@@ -23,7 +23,7 @@ export function CreateRoom({ categories }: { categories: Category[] }) {
     const form = useForm<Inputs>({
         resolver: zodResolver(roomSchema),
         defaultValues: {
-            capacity: 10,
+            capacity: 2,
             categoryId: 2,
         },
     })

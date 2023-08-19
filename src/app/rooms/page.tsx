@@ -73,9 +73,7 @@ const page = async ({
       <FilteringControls categories={distintCategories} />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {entries.map((room) => (
-          <>
             <RoomCard key={room.id} room={room} userId={userId!} userInRoom={userInRoom(room.id)} />
-          </>
         ))}
       </div>
       {entries.length === 0 && (<div className='mx-auto my-32 text-xl font-bold text-white'>No rooms found</div>)}
