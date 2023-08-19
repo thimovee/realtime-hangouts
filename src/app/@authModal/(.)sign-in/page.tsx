@@ -14,8 +14,8 @@ const page = () => {
                     <div className='container mx-auto flex w-11/12 flex-col justify-center space-y-6 sm:w-[400px]'>
                         <div className='flex flex-col space-y-2 text-center'>
                             <Cable className='mx-auto h-6 w-6' />
-                            <h1 className='text-2xl font-semibold tracking-tight'>Welcome back</h1>
-                            <p className='text-sm max-w-xs mx-auto'>
+                            <h1 className='text-2xl font-semibold tracking-tight text-black dark:text-white'>Welcome back</h1>
+                            <p className='text-sm max-w-xs mx-auto text-slate-800 dark:text-slate-200'>
                                 By continuing, you are setting up a account and agree to our
                                 User Agreement and Privacy Policy.
                             </p>
